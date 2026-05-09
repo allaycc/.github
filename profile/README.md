@@ -1,36 +1,124 @@
 # allay
 
-the only cc package manager that actually manages packages. for [cc: tweaked](https://tweaked.cc).
+allay is the only package manager that actually manages packages for [CC: Tweaked](https://tweaked.cc).
 
-## install
+> psst! we work with unicornpkg packages too!
 
-```
+it makes any CC software easier to install, uninstall, update and publish.
+
+#### bring a package, a repo, a library, or a pile of Lua files. allay will try to make sense of it.
+
+for users, that means less copying files around and less chasing missing libraries.
+
+for developers, that means you can ship software without writing a custom installer for every project.
+
+```sh
 wget run https://raw.githubusercontent.com/allaycc/allay/main/install.lua
 ```
 
-# why allay
+> ideally, this is the last installer you paste by hand.
 
-most cc software gets installed with `wget run`, which is fine, until you're installing programs that depend on other programs that depend on libraries that depend on other libraries.
+## built for the CC ecosystem that already exists
 
-allay handles the actual problem. dependencies install themselves, updates apply across everything at once, and removals can clean up the things that came along just for the package you're removing.
+most CC projects were not written for a package manager. allay is built around that.
 
-# "but i already use unicornpkg"
+allay can install from package sources, existing package formats, and github repos directly. if a repo has package metadata, great! allay will use it. if it does not, allay can still inspect the project, read code, find installable files, and build an install plan where possible.
 
-your packages install through allay the same as any other. when a unicornpkg-format package shows up, allay translates it on read. same install command, same lockfile, same dep resolution. you don't have to migrate. you don't have to choose between catalogs.
+the goal is to make CC software installable wherever it already lives.
 
-# "can i install a library that isn't built for allay specifically"
+## for users
 
-yes. give allay a github repo and it walks the tree itself: figures out which files are libraries, which are programs, where each one goes, and what other packages it needs. you don't need the author to publish anything. for allay, the source code is the package.
+install the allay or unicornpkg repo you want:
 
-## Repos
+```sh
+allay install package
+```
 
-| repo | what to find |
+or install **any other** CC software from github:
+
+```sh
+allay install gh:user/repo
+```
+
+unicornpkg packages work too
+
+if a package is already in unicornpkg format, allay can read it through the compatibility layer 'alicorn': 
+
+```sh
+allay info alicorn
+```
+
+update everything later:
+
+```sh
+allay update
+```
+
+remove what you no longer need:
+
+```sh
+allay remove package
+```
+
+## dependencies
+
+you install a program, it complains about a missing library, you go find that library, and then maybe that library needs something else.
+
+allay makes that trivial.
+
+if a package declares dependencies, allay installs them automatically. if a github repo uses libraries allay recognizes, it can pull those in too. if something cannot be resolved automatically, allay tells you what it couldn't find.
+
+shared dependencies are installed once and reused by the packages that need them.
+
+## updates
+
+allay remembers where installed packages came from.
+
+```sh
+allay update
+```
+
+normal packages update from their source, and github repo installs can refresh from the repo they came from.
+
+you can update everything at once, or update one package:
+
+```sh
+allay update package
+```
+
+## for developers
+
+publishing CC software should not be harder than writing it.
+
+with allay, you can make a project installable by adding package metadata and publishing it through a source.
+
+```sh
+allay init
+```
+
+a package can include programs, libraries, startup files, config files, help files, and dependencies. allay puts them where they belong, and users get a normal install/update/remove flow.
+
+## package sources
+
+allay does not depend on one central catalog.
+
+```sh
+allay source add user/repo
+allay source add https://example.com/packages
+```
+
+sources can be GitHub repos, https hosts, floppy disks, or even rednet transports with the plugin installed.
+
+
+## repos
+
+| repo | what it is |
 |---|---|
-| [allay](https://github.com/allaycc/allay) | The CLI and runtime. `allay install`, `allay update`, etc. |
-| [core](https://github.com/allaycc/core) | The default package source. Hosts allay itself plus its foundation libs. |
-| [extras](https://github.com/allaycc/extras) | Curated catalog of popular CC: Tweaked libraries (Pine3D, ecnet2, msks, ...). |
-| [lualibs](https://github.com/allaycc/lualibs) | Foundation libraries: hash, pathkit, log, httpkit, argparse, levenshtein, ui, scout. Reusable outside allay. |
-| [alicorn](https://github.com/allaycc/alicorn) | Translator for installing unicornpkg-format packages through allay. |
-| [spec](https://github.com/allaycc/spec) | Versioned format specs: package definition, source index, lockfile. |
-| [server](https://github.com/allaycc/server) | Serve allay packages over rednet (experimental). |
-| [rednet-transport](https://github.com/allaycc/rednet-transport) | rednet:// transport plugin so clients can fetch packages from an allay-server (experimental). |
+| [allay](https://github.com/allaycc/allay) | cli and runtime |
+| [core](https://github.com/allaycc/core) | default package source |
+| [extras](https://github.com/allaycc/extras) | curated CC: Tweaked libraries and tools |
+| [lualibs](https://github.com/allaycc/lualibs) | reusable lua libraries used by allay |
+| [alicorn](https://github.com/allaycc/alicorn) | unicornpkg compatibility |
+| [spec](https://github.com/allaycc/spec) | package, source index, and lockfile specs |
+| [server](https://github.com/allaycc/server) | experimental rednet package server |
+| [rednet-transport](https://github.com/allaycc/rednet-transport) | experimental `rednet://` transport |
