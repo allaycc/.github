@@ -1,6 +1,20 @@
 # allay
 
-A package manager for [CC: Tweaked](https://tweaked.cc).
+the package manager you should use for your craft-os // [cc: tweaked](https://tweaked.cc).
+
+# why allay
+
+most cc software gets installed with `wget run`, which is fine, until you're installing programs that depend on other programs that depend on libraries that depend on other libraries.
+
+allay handles the actual problem. dependencies install themselves, updates apply across everything at once, and removals can clean up the things that came along just for the package you're removing.
+
+# "but i already use unicornpkg"
+
+we support unicornpkg packages, and even more.
+
+# "can i install a library that isn't built for allay specifically"
+
+yes you can. allay handles it. you'd be surprised.
 
 Install:
 
@@ -10,7 +24,7 @@ wget run https://raw.githubusercontent.com/allaycc/allay/main/install.lua
 
 ## Repos
 
-| Repo | What it is |
+| repo | what to find |
 |---|---|
 | [allay](https://github.com/allaycc/allay) | The CLI and runtime. `allay install`, `allay update`, etc. |
 | [core](https://github.com/allaycc/core) | The default package source. Hosts allay itself plus its foundation libs. |
