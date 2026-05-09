@@ -12,6 +12,8 @@ for users, that means less copying files around and less chasing missing librari
 
 for developers, that means you can ship software without writing a custom installer for every project.
 
+## install:
+
 ```sh
 wget run https://raw.githubusercontent.com/allaycc/allay/main/install.lua
 ```
