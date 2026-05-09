@@ -1,6 +1,6 @@
 # allay
 
-the package manager you should use for your craft-os // [cc: tweaked](https://tweaked.cc).
+the only cc package manager that actually manages packages. for [cc: tweaked](https://tweaked.cc).
 
 # why allay
 
@@ -10,11 +10,11 @@ allay handles the actual problem. dependencies install themselves, updates apply
 
 # "but i already use unicornpkg"
 
-we support unicornpkg packages, and even more.
+your packages install through allay the same as any other. when a unicornpkg-format package shows up, allay translates it on read. same install command, same lockfile, same dep resolution. you don't have to migrate. you don't have to choose between catalogs.
 
 # "can i install a library that isn't built for allay specifically"
 
-yes you can. allay handles it. you'd be surprised.
+yes. give allay a github repo and it walks the tree itself: figures out which files are libraries, which are programs, where each one goes, and what other packages it needs. you don't need the author to publish anything. for allay, the source code is the package.
 
 Install:
 
