@@ -2,9 +2,9 @@
 
 allay is the only package manager that actually manages packages for [CC: Tweaked](https://tweaked.cc).
 
-> psst! we work with unicornpkg packages too!
+as expected, it makes CC software easier to install, uninstall, update and publish.
 
-it makes any CC software easier to install, uninstall, update and publish.
+it makes ANY CC software easier to install. And we work with unicornpkg packages too!
 
 #### bring a package, a repo, a library, or a pile of Lua files. allay will try to make sense of it.
 
